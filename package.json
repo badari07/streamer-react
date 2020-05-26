@@ -2,8 +2,18 @@
   "name": "streamer",
   "version": "1.0.0",
   "description": "Its a streamer twitch app",
-  "main": "index.js",
+  "main": "dist",
   "repository": "git@github.com:badari07/streamer-react.git",
   "author": "badari07 <badari0793@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "parcel src/index.html"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
 }
