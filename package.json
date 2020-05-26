@@ -1,0 +1,9 @@
+{
+  "name": "streamer",
+  "version": "1.0.0",
+  "description": "Its a streamer twitch app",
+  "main": "index.js",
+  "repository": "git@github.com:badari07/streamer-react.git",
+  "author": "badari07 <badari0793@gmail.com>",
+  "license": "MIT"
+}
