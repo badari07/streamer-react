@@ -15,26 +15,40 @@ const GoogleAuth = () => {
           const auth = window.gapi.auth2.getAuthInstance();
 
           isSignInSet(auth.isSignedIn.get());
-          auth.isSignedIn.listen(onAuthChange);
+          auth.isSignedIn.listen(() => isSignInSet(auth.isSignedIn.get()));
         });
     });
   }, []);
 
-  const onAuthChange = () => {
-    isSignInSet(window.gapi.auth2.getAuthInstance().isSignedIn.get());
+  //   const onAuthChange = () => {
+  //     isSignInSet(window.gapi.auth2.getAuthInstance().isSignedIn.get());
+  //   };
+
+  const handleClick = () => {
+    const auth = window.gapi.auth2.getAuthInstance();
+    if (isSignIn) {
+      auth.signOut();
+    } else {
+      auth.signIn();
+    }
   };
 
   if (isSignIn === null) {
     return null;
   } else if (isSignIn) {
     return (
-      <button className="ui red google button">
+      <button className="ui red google button" onClick={handleClick}>
         <i className="google icon" />
         Sign Out
       </button>
     );
   } else {
-    return <div>I am not signed In</div>;
+    return (
+      <button className="ui red google button" onClick={handleClick}>
+        <i className="google icon" />
+        Sign In with google
+      </button>
+    );
   }
 };
 

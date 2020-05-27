@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import StreamCreate from "./streams/StreamCreate";
 import StreamDelete from "./streams/StreamDelete";
@@ -26,4 +25,4 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+export default App;
