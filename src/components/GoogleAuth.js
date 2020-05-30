@@ -1,9 +1,9 @@
 require("dotenv").config();
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { signIn, signOut } from "../actionCreates/index";
 
-const GoogleAuth = () => {
-  const [isSignIn, isSignInSet] = useState(null);
-
+const GoogleAuth = ({ signIn, signOut, isSignedIn }) => {
   useEffect(() => {
     window.gapi.load("client:auth2", () => {
       window.gapi.client
@@ -14,28 +14,33 @@ const GoogleAuth = () => {
         .then(() => {
           const auth = window.gapi.auth2.getAuthInstance();
 
-          isSignInSet(auth.isSignedIn.get());
-          auth.isSignedIn.listen(() => isSignInSet(auth.isSignedIn.get()));
+          onAuthChange(auth.isSignedIn.get());
+          auth.isSignedIn.listen(onAuthChange);
         });
     });
   }, []);
 
-  //   const onAuthChange = () => {
-  //     isSignInSet(window.gapi.auth2.getAuthInstance().isSignedIn.get());
-  //   };
+  const onAuthChange = (isSignedIn) => {
+    const Id = window.gapi.auth2.getAuthInstance().currentUser.get().getId();
+    if (isSignedIn) {
+      signIn(Id);
+    } else {
+      signOut();
+    }
+  };
 
   const handleClick = () => {
     const auth = window.gapi.auth2.getAuthInstance();
-    if (isSignIn) {
+    if (isSignedIn) {
       auth.signOut();
     } else {
       auth.signIn();
     }
   };
 
-  if (isSignIn === null) {
+  if (isSignedIn === null) {
     return null;
-  } else if (isSignIn) {
+  } else if (isSignedIn) {
     return (
       <button className="ui red google button" onClick={handleClick}>
         <i className="google icon" />
@@ -52,4 +57,8 @@ const GoogleAuth = () => {
   }
 };
 
-export default GoogleAuth;
+const mapStateToProps = (state) => ({
+  isSignedIn: state.auth.isSignedIn,
+});
+
+export default connect(mapStateToProps, { signIn, signOut })(GoogleAuth);
