@@ -10,6 +10,7 @@
     "dev": "parcel src/index.html"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -17,7 +18,8 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
-    "redux-form": "^8.3.6"
+    "redux-form": "^8.3.6",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4"
